@@ -143,7 +143,7 @@ const Wallet = () => {
 	
 	return (
 	<div>
-			<h2> {"NCR Smart Loyalty Connect"} </h2>
+			<h2 className={styles.greenText}> {"NCR Smart Loyalty Connect"} </h2>
 			<button className={styles.button6} onClick={connectWalletHandler}>{connButtonText}</button>
 
 			<div className={styles.walletCard}>
