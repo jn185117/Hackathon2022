@@ -7,7 +7,7 @@ import Interactions from './Interactions';
 const Wallet = () => {
 
 	// deploy simple token contract and paste deployed contract address here. This value is local ganache chain
-	let contractAddress = '0xB045FCbebe72a2Cd1f0294C730281EfB49eC4c6A';
+	let contractAddress = '0x7176067e75b09925dF58577dD33982d7B3343221';
 
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [defaultAccount, setDefaultAccount] = useState(null);
@@ -20,11 +20,21 @@ const Wallet = () => {
 	const [tokenName, setTokenName] = useState("Token");
 	const [balance, setBalance] = useState(null);
 	const [transferHash, setTransferHash] = useState(null);
+	const [conversion, setConversion] = useState(null);
+	const [amount, setAmount] = useState(null);
 
 
 
-	const connectWalletHandler = () => {
-		if (window.ethereum && window.ethereum.isMetaMask) {
+	const connectWalletHandler = async() => {
+
+		let provider = new ethers.providers.Web3Provider(window.ethereum);
+		let accounts = await provider.send("eth_requestAccounts",[]);
+
+		if (accounts.length>0){
+			console.log('Already connected')
+		}
+
+		if (accounts.length>0 || (window.ethereum && window.ethereum.isMetaMask)) {
 
 			window.ethereum.request({ method: 'eth_requestAccounts'})
 			.then(result => {
@@ -49,6 +59,7 @@ const Wallet = () => {
 	}
 
 	const updateBalance = async () => {
+		
 		let balanceBigN = await contract.balanceOf(defaultAccount);
 		let balanceNumber = balanceBigN.toNumber();
 
@@ -57,6 +68,7 @@ const Wallet = () => {
 		let tokenBalance = balanceNumber / Math.pow(10, tokenDecimals);
 
 		setBalance(balanceNumber);	
+		console.log('updating balance' +balanceNumber)
 
 
 	}
@@ -100,6 +112,8 @@ const Wallet = () => {
 		setContract(tempContract);	
 	}
 
+	
+
 	useEffect(() => {
 		if (contract != null) {
 			updateBalance();
@@ -110,24 +124,43 @@ const Wallet = () => {
 	const updateTokenName = async () => {
 		setTokenName(await contract.name());
 	}
+
+	useEffect(()=> {
+
+		const queryParams = new URLSearchParams(window.location.search)
+  		const conversion = queryParams.get("conversion")
+		const amount = queryParams.get("amount")
+  		console.log(conversion)
+		console.log(amount)
+		setConversion(conversion);
+		setAmount(amount);
+
+		connectWalletHandler()
+		updateBalance();
+		
+		
+		} ,[])
 	
 	return (
 	<div>
-			<h2> {"NCR Smart Loyalty Wallet"} </h2>
+			<h2> {"NCR Smart Loyalty Connect"} </h2>
 			<button className={styles.button6} onClick={connectWalletHandler}>{connButtonText}</button>
 
 			<div className={styles.walletCard}>
 			<div>
-				<h3>Address: {defaultAccount}</h3>
+				<h3>Your Address: {defaultAccount}</h3>
 			</div>
 
 			<div>
 				<h3>{"NCR Smart Loyalty "} Balance: {balance}</h3>
 			</div>
+			<div> <h5> 1 NCR Loyalty Point = {conversion}$</h5></div>
+			<div> <h5>Total amount Payable = {amount}$</h5> </div>
 
 			{errorMessage}
 		</div>
-		<Interactions contract = {contract}/>
+		<div></div>
+		<Interactions contract = {contract} account = {defaultAccount} updateAfterBalance = {updateBalance}/>
 	</div>
 	)
 }
