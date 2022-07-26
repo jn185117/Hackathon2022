@@ -152,7 +152,7 @@ const Wallet = () => {
 			</div>
 
 			<div>
-				<h3>{"NCR Smart Loyalty "} Balance: {balance}</h3>
+				<h3>{"Your NCR Smart Loyalty "} Balance: {balance}</h3>
 			</div>
 			<div> <h5> 1 NCR Loyalty Point = {conversion}$</h5></div>
 			<div> <h5>Total amount Payable = {amount}$</h5> </div>

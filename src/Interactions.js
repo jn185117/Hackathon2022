@@ -40,13 +40,13 @@ const Interactions = (props) => {
 	return (
 			<div className={styles.interactionsCard}>
 				<form onSubmit={transferHandler}>
-					<h2 className={styles.darkGreenText}> Transfer Loyalty Points </h2>
+					<h2 className={styles.greenText}> Transfer Loyalty Points </h2>
 					
-						<h3 className={styles.darkGreenText}>Address to send points</h3>
+						<h3 className={styles.greenText}>Address to send points</h3>
 						
 						<input type='text' id='recieverAddress' className={styles.addressInput}/>
 
-						<h3 className={styles.darkGreenText}> Number of Points </h3>
+						<h3 className={styles.greenText}> Number of Points </h3>
 						<input type='number' id='sendAmount' min='0' step='1' />
 
 						<button type='submit' className={styles.button6}>Send</button>

@@ -30,7 +30,7 @@
 	margin: auto;
 	padding-bottom: 1em;
 	border-radius: 10px;
-	background-color: #b9ffb9;
+	background-color: #ecffec;
 	
 }
 
@@ -50,7 +50,20 @@
 	font-weight: 400;
 	color:#FFFFFF;
 	background-color: #00d800;
-	box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+}
+
+.button66 {
+	border: none;
+	padding: 0.7em 1.4em;
+	margin: 0 0.3em 0.3em 0.3em;
+	border-radius:0.15em;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: 'Papyrus', 'Copperplate' sans-serif;
+	text-transform: uppercase;
+	font-weight: 400;
+	color:#FFFFFF;
+	background-color: #ecffec;
 }
 
 .conversion{
