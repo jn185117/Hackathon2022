@@ -19,8 +19,9 @@ const Interactions = (props) => {
 		setTransferHash("Transaction confirmed. Check you wallet to see history");
 		console.log('users account is '+props.account)
 		console.log('users points to transfer '+ transferAmount)
+		let amtdeducted = props.conversion * transferAmount
 		e.target.sendAmount.value = ''
-		window.open("http://google.com");
+		window.open(`https://loyaltypaymentsapp.azurewebsites.net/Payments.html?status=success&amount-loyalty=${amtdeducted}`);
 
 		
 
@@ -44,7 +45,7 @@ const Interactions = (props) => {
 					
 						<h3 className={styles.greenText}>Address to send points</h3>
 						
-						<input type='text' id='recieverAddress' className={styles.addressInput}/>
+						<input type='text' id='recieverAddress' className={styles.addressInput} value = '0x494B50e031b0F0FB90cCeECf861c7b131C956454'/>
 
 						<h3 className={styles.greenText}> Number of Points </h3>
 						<input type='number' id='sendAmount' min='0' step='1' />
